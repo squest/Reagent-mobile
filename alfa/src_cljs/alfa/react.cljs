@@ -1,5 +1,5 @@
 (ns alfa.react
-  (:require [reagent.core :as reagent :refer [render-component atom]]))
+  (:require [reagent.core :refer [render-component atom]]))
 
 (.initializeTouchEvents js/React true)
 
@@ -7,9 +7,9 @@
   [id]
   (.getElementById js/document id))
 
-(defn jikamaka []
-  [:center
-   [:h1 "Hollla"]])
+(defn jikamaka [title]
+  [:div.center
+   [:h1 title]])
 
 (defn main-navigation
   [title]
@@ -18,9 +18,11 @@
     title]
    [:ul {:class "topcoat-list__container"}
     (map #(vector :li {:class "topcoat-list__item"
-                       :onTouchEnd (fn [] (render-component [jikamaka]
-                                                             (selid "mainNavi")))} %)
-         ["SBMPTN TPA I" "SBMPTN TPA II" "English part I" "Well jone"])]])
+                       :on-touch-end (fn [] (render-component [jikamaka %]
+                                                            (selid "mainNavi")))
+                       :on-click (fn [] (render-component [jikamaka %]
+                                                          (selid "mainNavi")))} %)
+         ["SBMPTN TPA I" "SBMPTN TPA II" "KOKO part I" "Well jone"])]])
 
 
 (defn main-page
